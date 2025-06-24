@@ -242,6 +242,11 @@
 
   <footer>
     <p>© 2025 Cyber Boy. All rights reserved.</p>
+    
+    <!-- Glowing Circle Animation -->
+<div class="animated-circle"></div>
+
+
   </footer>
 
   <script>
@@ -254,287 +259,52 @@
         window.location.href = "login.html";
       }
     }
+
   </script>
-  
-  <canvas id="cyberCanvas"></canvas>
-
-<script>
-const canvas = document.getElementById("cyberCanvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = 300;
-
-let particlesArray = [];
-const colors = ["#00ff66", "#ff0033"]; // Green & Red
-
-class Particle {
-  constructor(){
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 3 + 1;
-    this.baseX = this.x;
-    this.baseY = this.y;
-    this.dx = (Math.random() - 0.5) * 1;
-    this.dy = (Math.random() - 0.5) * 1;
-    this.color = colors[Math.floor(Math.random() * colors.length)];
-  }
-  draw(){
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.shadowColor = this.color;
-    ctx.shadowBlur = 10;
-    ctx.fill();
-  }
-  update(){
-    this.x += this.dx;
-    this.y += this.dy;
-
-    if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
-
-    this.draw();
-  }
-}
-
-function init(){
-  particlesArray = [];
-  for (let i = 0; i < 100; i++){
-    particlesArray.push(new Particle());
-  }
-}
-init();
-
-function animate(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for(let i = 0; i < particlesArray.length; i++){
-    particlesArray[i].update();
-
-    for(let j = i; j < particlesArray.length; j++){
-      let dx = particlesArray[i].x - particlesArray[j].x;
-      let dy = particlesArray[i].y - particlesArray[j].y;
-      let distance = Math.sqrt(dx*dx + dy*dy);
-      if (distance < 100){
-        ctx.beginPath();
-        ctx.strokeStyle = particlesArray[i].color;
-        ctx.lineWidth = 0.5;
-        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-        ctx.stroke();
-      }
-    }
-  }
-  requestAnimationFrame(animate);
-}
-animate();
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = 300;
-  init();
-});
-</script>
-  <!-- Paste this just below <section class="hero"> -->
-<div class="cyber-tagline">
-  <span id="typing"></span>
+<div class="animated-circle-container">
+  <div class="animated-circle"></div>
 </div>
 
+<!-- Hacker GIF Animation -->
+<div class="hacker-animated">
+  <img src="assets/icons/hacker-red.gif" alt="Hacker Coding" />
+</div>
+
+<!-- Styles -->
 <style>
-.cyber-tagline {
+.animated-circle {
+  width: 120px;
+  height: 120px;
+  margin: 30px auto 10px;
+  border-radius: 50%;
+  border: 6px solid #00ff99;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 20px #00ff99;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+.hacker-animated {
   text-align: center;
-  margin-top: -10px;
-  font-size: 1.4rem;
-  color: #00ffcc;
-  font-family: 'Orbitron', monospace;
-  text-shadow: 0 0 10px #00ffcc;
-  min-height: 40px;
+  margin-top: 20px;
+}
+
+.hacker-animated img {
+  width: 250px;
+  max-width: 90%;
+  filter: drop-shadow(0 0 15px red);
 }
 </style>
-
-<script>
-const phrases = [
-  "🔐 Unlock Hidden Tools",
-  "🚀 Hack the Limits, Ethically",
-  "💻 Cyber Boy: Power in Your Hands",
-  "🛠️ Learn. Hack. Repeat.",
-  "⚡ 100% Working Premium Tools"
-];
-let i = 0;
-let j = 0;
-let currentPhrase = [];
-let isDeleting = false;
-let isEnd = false;
-
-function loop () {
-  isEnd = false;
-  document.getElementById('typing').innerHTML = currentPhrase.join('');
-
-  if (i < phrases.length) {
-
-    if (!isDeleting && j <= phrases[i].length) {
-      currentPhrase.push(phrases[i][j]);
-      j++;
-      document.getElementById('typing').innerHTML = currentPhrase.join('');
-    }
-
-    if(isDeleting && j <= phrases[i].length){
-      currentPhrase.pop(phrases[i][j]);
-      j--;
-      document.getElementById('typing').innerHTML = currentPhrase.join('');
-    }
-
-    if (j == phrases[i].length) {
-      isEnd = true;
-      isDeleting = true;
-    }
-
-    if (isDeleting && j === 0) {
-      currentPhrase = [];
-      isDeleting = false;
-      i++;
-      if (i === phrases.length) {
-        i = 0;
-      }
-    }
-  }
-  const spedUp = Math.random() * (80 -50) + 50;
-  const normalSpeed = Math.random() * (150 -100) + 100;
-  const time = isEnd ? 1200 : isDeleting ? spedUp : normalSpeed;
-  setTimeout(loop, time);
-}
-
-loop();
-</script>
-
-
-  
-<!-- Add this before <footer> -->
-<canvas id="cyberCanvas"></canvas>
-
-<style>
-#cyberCanvas {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  z-index: -1;
-  background: transparent;
-}
-</style>
-
-<script>
-const canvas = document.getElementById('cyberCanvas');
-const ctx = canvas.getContext('2d');
-
-canvas.width = window.innerWidth;
-canvas.height = 200;
-
-let particlesArray = [];
-
-class Particle {
-  constructor(){
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 2 + 1;
-    this.speedX = Math.random() * 0.3 - 0.15;
-    this.speedY = Math.random() * -0.3;
-    this.alpha = Math.random();
-  }
-  update(){
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.y < 0) {
-      this.y = canvas.height;
-      this.x = Math.random() * canvas.width;
-    }
-  }
-  draw(){
-    ctx.fillStyle = 'rgba(0, 255, 153,' + this.alpha + ')';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function init(){
-  particlesArray = [];
-  for (let i = 0; i < 150; i++){
-    particlesArray.push(new Particle());
-  }
-}
-
-function animate(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < particlesArray.length; i++){
-    particlesArray[i].update();
-    particlesArray[i].draw();
-  }
-  requestAnimationFrame(animate);
-}
-
-init();
-animate();
-</script>
-
-<canvas id="matrixCanvas"></canvas>
-
-<style>
-  #matrixCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    pointer-events: none;
-  }
-</style>
-
-<script>
-  const canvas = document.getElementById('matrixCanvas');
-  const ctx = canvas.getContext('2d');
-  
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  
-  const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%^&*@".split("");
-  const fontSize = 16;
-  const columns = canvas.width / fontSize;
-  
-  const drops = [];
-  for (let x = 0; x < columns; x++) {
-    drops[x] = 1;
-  }
-  
-  function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = "#00FF99";
-    ctx.font = fontSize + "px monospace";
-    
-    for (let i = 0; i < drops.length; i++) {
-      const text = letters[Math.floor(Math.random() * letters.length)];
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-      
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      
-      drops[i]++;
-    }
-  }
-  
-  setInterval(draw, 33);
-  
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-</script>
-
-</body>
-</html>
